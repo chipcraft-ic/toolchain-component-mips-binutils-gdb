@@ -462,8 +462,17 @@ _rl_init_terminal_io (const char *terminal_name)
   _rl_term_clrpag = _rl_term_cr = _rl_term_clreol = _rl_term_clrscroll = (char *)NULL;
   tty = rl_instream ? fileno (rl_instream) : 0;
 
+/*
+ * ncurses port for MinGW has terminal Windows driver
+ * which handles scenarios when TERM is not set.
+ * It implies #win32con terminal by default.
+ * If we try to use 'dumb', it for some reason will cause 'Access Violation'
+ * while trying to 'FREE(term_buffer) after 'tgetent()' returns -1.
+ */
+#if !defined (__MINGW32__)
   if (term == 0)
     term = "dumb";
+#endif
 
   dumbterm = STREQ (term, "dumb");
 
