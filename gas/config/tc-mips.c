@@ -1486,6 +1486,8 @@ enum options
     OPTION_NO_EVA,
     OPTION_XPA,
     OPTION_NO_XPA,
+    OPTION_GNSS,
+    OPTION_NO_GNSS,
     OPTION_MICROMIPS,
     OPTION_NO_MICROMIPS,
     OPTION_MCU,
@@ -1641,6 +1643,8 @@ struct option md_longopts[] =
   {"mno-loongson-ext", no_argument, NULL, OPTION_NO_LOONGSON_EXT},
   {"mloongson-ext2", no_argument, NULL, OPTION_LOONGSON_EXT2},
   {"mno-loongson-ext2", no_argument, NULL, OPTION_NO_LOONGSON_EXT2},
+  {"mgnss", no_argument, NULL, OPTION_GNSS},
+  {"mno-gnss", no_argument, NULL, OPTION_NO_GNSS},
 
   /* Old-style architecture options.  Don't add more of these.  */
   {"m4650", no_argument, NULL, OPTION_M4650},
@@ -1862,6 +1866,11 @@ static const struct mips_ase mips_ases[] = {
     OPTION_LOONGSON_EXT2, OPTION_NO_LOONGSON_EXT2,
     0, 0, -1, -1,
     -1 },
+
+  { "gnss", ASE_GNSS, 0,
+    OPTION_GNSS, OPTION_NO_GNSS,
+    0, 0, -1, -1,
+    -1 },
 };
 
 /* The set of ASEs that require -mfp64.  */
@@ -1869,10 +1878,10 @@ static const struct mips_ase mips_ases[] = {
 
 /* Groups of ASE_* flags that represent different revisions of an ASE.  */
 static const unsigned int mips_ase_groups[] = {
-  ASE_DSP | ASE_DSPR2 | ASE_DSPR3, 
-  ASE_LOONGSON_EXT | ASE_LOONGSON_EXT2 
+  ASE_DSP | ASE_DSPR2 | ASE_DSPR3,
+  ASE_LOONGSON_EXT | ASE_LOONGSON_EXT2
 };
-
+
 /* Pseudo-op table.
 
    The following pseudo-ops from the Kane and Heinrich MIPS book
@@ -19388,6 +19397,8 @@ mips_convert_ase_flags (int ase)
     ext_ases |= AFL_ASE_LOONGSON_EXT;
   if (ase & ASE_LOONGSON_EXT2)
     ext_ases |= AFL_ASE_LOONGSON_EXT2;
+  if (ase & ASE_GNSS)
+    ext_ases |= AFL_ASE_GNSS;
 
   return ext_ases;
 }
@@ -20017,6 +20028,7 @@ static const struct mips_cpu_info mips_cpu_info_table[] =
 
   /* MIPS II */
   { "r6000",          0, 0,			ISA_MIPS2,    CPU_R6000 },
+  { "ccproc",          0, ASE_GNSS,			ISA_MIPS2,    CPU_CCPROC },
 
   /* MIPS III */
   { "r4000",          0, 0,			ISA_MIPS3,    CPU_R4000 },
@@ -20429,6 +20441,9 @@ MIPS options:\n\
   fprintf (stream, _("\
 -mloongson-ext2		generate Loongson EXTensions R2 (EXT2) instructions\n\
 -mno-loongson-ext2	do not generate Loongson EXTensions R2 Instructions\n"));
+  fprintf (stream, _("\
+-mgnss		generate GNSS-ISE instructions\n\
+-mno-gnss	do not generate GNSS-ISE instructions\n"));
   fprintf (stream, _("\
 -minsn32		only generate 32-bit microMIPS instructions\n\
 -mno-insn32		generate all microMIPS instructions\n"));

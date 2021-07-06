@@ -228,6 +228,12 @@ Generate code for the MIPS eXtended Physical Address (XPA) Extension.
 This tells the assembler to accept XPA instructions.
 @samp{-mno-xpa} turns off this option.
 
+@item -mgnss
+@itemx -mno-gnss
+Generate code for the GNSS-ISE.
+This tells the assembler to accept GNSS-ISE instructions.
+@samp{-mno-gnss} turns off this option.
+
 @item -mvirt
 @itemx -mno-virt
 Generate code for the Virtualization Application Specific Extension.
@@ -1215,6 +1221,13 @@ instructions from the Loongson EXT2 from that point on in the assembly.
 This directive implies @code{.set loognson-ext}.
 The @code{.set noloongson-ext2} directive prevents Loongson EXT2 instructions
 from being accepted.
+
+@cindex GNSS-ISE instruction generation override
+@kindex @code{.set gnss}
+@kindex @code{.set nognss}
+The directive @code{.set gnss} makes the assembler accept instructions
+from the GNSS-ISE from that point on in the assembly.  The
+@code{.set nognss} directive prevents GNSS-ISE instructions from being accepted.
 
 Traditional MIPS assemblers do not support these directives.
 

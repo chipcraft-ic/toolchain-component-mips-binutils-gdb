@@ -14485,6 +14485,7 @@ static const struct mips_mach_extension mips_mach_extensions[] =
   { bfd_mach_mips4000, bfd_mach_mips6000 },
   { bfd_mach_mipsisa32, bfd_mach_mips6000 },
   { bfd_mach_mips4010, bfd_mach_mips6000 },
+  { bfd_mach_mips_ccproc, bfd_mach_mips6000 },
 
   /* MIPS I extensions.  */
   { bfd_mach_mips6000, bfd_mach_mips3000 },
@@ -16104,6 +16105,8 @@ print_mips_ases (FILE *file, unsigned int mask)
     fputs ("\n\tMICROMIPS ASE", file);
   if (mask & AFL_ASE_XPA)
     fputs ("\n\tXPA ASE", file);
+  if (mask & AFL_ASE_GNSS)
+    fputs ("\n\tGNSS ASE", file);
   if (mask & AFL_ASE_MIPS16E2)
     fputs ("\n\tMIPS16e2 ASE", file);
   if (mask & AFL_ASE_CRC)

@@ -1157,7 +1157,7 @@ mips_opcode_32bit_p (const struct mips_opcode *mo)
 #define INSN_ISA32R3              8
 #define INSN_ISA32R5              9
 #define INSN_ISA32R6              10
-#define INSN_ISA64                11 
+#define INSN_ISA64                11
 #define INSN_ISA64R2              12
 #define INSN_ISA64R3              13
 #define INSN_ISA64R5              14
@@ -1316,6 +1316,8 @@ static const unsigned int mips_isa_table[] = {
 /* The Enhanced VA Scheme (EVA) extension has instructions which are
    only valid for the R6 ISA.  */
 #define ASE_EVA_R6		0x02000000
+/* GNSS instructions.  */
+#define ASE_GNSS	0x04000000
 
 /* MIPS ISA defines, use instead of hardcoding ISA level.  */
 
@@ -1389,6 +1391,7 @@ static const unsigned int mips_isa_table[] = {
 #define CPU_OCTEON3	6503
 #define CPU_XLR     	887682   	/* decimal 'XLR'   */
 #define CPU_INTERAPTIV_MR2 736550	/* decimal 'IA2'  */
+#define CPU_CCPROC 61646563
 
 /* Return true if the given CPU is included in INSN_* mask MASK.  */
 
