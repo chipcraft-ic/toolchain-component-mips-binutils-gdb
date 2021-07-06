@@ -17637,6 +17637,8 @@ print_mips_ases (unsigned int mask)
     fputs ("\n\tLoongson EXT ASE", stdout);
   if (mask & AFL_ASE_LOONGSON_EXT2)
     fputs ("\n\tLoongson EXT2 ASE", stdout);
+  if (mask & AFL_ASE_GNSS)
+    fputs ("\n\tGNSS", stdout);
   if (mask == 0)
     fprintf (stdout, "\n\t%s", _("None"));
   else if ((mask & ~AFL_ASE_MASK) != 0)

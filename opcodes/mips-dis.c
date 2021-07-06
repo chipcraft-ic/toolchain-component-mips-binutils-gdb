@@ -706,6 +706,10 @@ const struct mips_arch_choice mips_arch_choices[] =
     mips_cp0sel_names_xlr, ARRAY_SIZE (mips_cp0sel_names_xlr),
     mips_cp1_names_mips3264, mips_hwr_names_numeric },
 
+  { "ccproc",	1, bfd_mach_mips_ccproc, CPU_CCPROC, ISA_MIPS2, ASE_GNSS,
+    mips_cp0_names_numeric, NULL, 0, mips_cp1_names_numeric,
+    mips_hwr_names_numeric },
+
   /* This entry, mips16, is here only for ISA/processor selection; do
      not print its name.  */
   { "",		1, bfd_mach_mips16, CPU_MIPS16, ISA_MIPS64,
@@ -848,6 +852,8 @@ mips_convert_abiflags_ases (unsigned long afl_ases)
     opcode_ases |= ASE_DSPR3;
   if (afl_ases & AFL_ASE_MIPS16E2)
     opcode_ases |= ASE_MIPS16E2;
+  if (afl_ases & AFL_ASE_GNSS)
+    opcode_ases |= ASE_GNSS;
   return opcode_ases;
 }
 
@@ -992,7 +998,7 @@ parse_mips_ase_option (const char *option)
       mips_ase |= ASE_LOONGSON_CAM;
       return true;
     }
-  
+
   /* Put here for match ext2 frist */
   if (startswith (option, "loongson-ext2"))
     {
@@ -1003,6 +1009,12 @@ parse_mips_ase_option (const char *option)
   if (startswith (option, "loongson-ext"))
     {
       mips_ase |= ASE_LOONGSON_EXT;
+      return true;
+    }
+
+  if (startswith (option, "gnss"))
+    {
+      mips_ase |= ASE_GNSS;
       return true;
     }
 
@@ -2673,6 +2685,9 @@ static struct
   { "loongson-ext2",
 		  N_("Recognize the Loongson EXTensions R2 (EXT2) "
 		     " instructions.\n"),
+		  MIPS_OPTION_ARG_NONE },
+  { "gnss",
+		  N_("Recognize the GNSS-ISE.\n"),
 		  MIPS_OPTION_ARG_NONE },
   { "gpr-names=", N_("Print GPR names according to specified ABI.\n\
                   Default: based on binary being disassembled.\n"),

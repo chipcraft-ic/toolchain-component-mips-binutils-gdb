@@ -120,6 +120,7 @@ set has_abi(o32) [expr ![istarget *-*-openbsd*] \
 		     && ![istarget mips64*el-ps2-elf*]]
 set has_abi(n32) [expr [istarget *-img-elf*] \
 		     || [istarget *-mti-elf*] \
+		     || [istarget mips*-cc-elf*] \
 		     || [istarget mips64*el-ps2-elf*] \
 		     || [istarget *-sde-elf*] \
 		     || [istarget *-*-freebsd*] \
@@ -180,6 +181,7 @@ if {[istarget *-*-openbsd*] } {
 } elseif {[istarget *-img-elf*] \
      || [istarget *-mti-elf*] \
      || [istarget *-sde-elf*] \
+     || [istarget mips*-cc-elf*] \
      || [istarget *-*-netbsd*] \
      || [istarget *-*-linux*] \
      || [istarget *-*-sysv4*] } {

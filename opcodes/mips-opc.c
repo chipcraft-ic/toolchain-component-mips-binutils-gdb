@@ -298,6 +298,9 @@ decode_mips_operand (const char *p)
 #define I4_33   INSN_ISA4_32R2
 #define I5_33   INSN_ISA5_32R2
 
+/* GNSS-ISE support.  */
+#define GNSS     ASE_GNSS
+
 /* MIPS64 MIPS-3D ASE support.  */
 #define M3D     ASE_MIPS3D
 
@@ -465,6 +468,77 @@ const struct mips_opcode mips_builtin_opcodes[] =
 {"balc",		"+'",		0xe8000000, 0xfc000000,	WR_31|NODS,		0,		I37,		0,	0 },
 {"lapc",		"s,-A",		0xec000000, 0xfc180000, WR_1,			RD_pc,		I37,		0,	0 },
 {"la",			"t,A(b)",	0,    (int) M_LA_AB,	INSN_MACRO,		0,		I1,		0,	0 },
+
+/* GNSS-ISE specific instructions. GNSS-ISE redefines Coprocessor 2 instructions.
+   Put them here so that disassembler will find them first.
+   The assemblers uses a hash table based on the instruction name anyhow.  */
+
+{"gnss.chann.set",		"v",		0x48000089, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.chann.get",		"d",		0x48000086, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+{"gnss.chann.incr",		"",		0x48000280, 0xffffffff,	0,			0,		I1,		GNSS,	0 },
+
+{"gnss.carr.freq",		"v",		0x48000087, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.carr.freq.i",    	"v",		0x48000287, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.carr.disc",		"d,v",		0x48000082, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.carr.disc.i",    	"d,v",		0x48000282, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.carr.set",		"v,t",		0x48000003, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.carr.rem",		"d,v,t",	0x48000083, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
+{"gnss.carr.rem.i",		"d,v,t",	0x48000283, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
+
+{"gnss.accu.add",		"v,t",		0x48000004, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.accu.get",		"d",		0x48000084, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+{"gnss.accu.get.i",		"d",		0x48000284, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.pll.disc",		"d,v,t",	0x48000100, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
+{"gnss.pll.cost",		"d,v,t",	0x48000101, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
+
+{"gnss.dll.disc.a",		"v,t",		0x48000005, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.dll.disc.b",		"d,v,t",	0x48000105, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
+
+{"gnss.pll.flt.rst",    	"",		0x48000007, 0xffffffff,	0,			0,		I1,		GNSS,	0 },
+{"gnss.pll.flt.coef",   	"v,t",		0x48000006, 0xfc00ffff,	RD_1|RD_2,	       	0,		I1,		GNSS,	0 },
+{"gnss.pll.flt",		"d,v",		0x48000106, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.pll.flt.i",		"d,v",		0x48000306, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+
+{"gnss.dll.flt.rst",    	"",		0x48000009, 0xffffffff,	0,			0,		I1,		GNSS,	0 },
+{"gnss.dll.flt.coef",   	"v,t",		0x48000008, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.dll.flt",		"d,v",		0x48000108, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.dll.flt.i",		"d,v",		0x48000308, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+
+{"gnss.pcode.addr.set", 	"v,t",		0x4800000a, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.pcode.wr",		"v",		0x4800000b, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.pcode.len",		"v,t",		0x4800000c, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+
+{"gnss.scode.addr.set", 	"v",		0x4800000f, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.scode.wr",		"v",		0x48000010, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.scode.len",		"v",		0x48000011, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.code.get",		"d",		0x4800008a, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+{"gnss.code.get.i",		"d",		0x4800028a, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+{"gnss.code.nco.freq",  	"v,t",		0x4800000d, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.code.epl.freq",  	"v,t",		0x4800000e, 0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.code.disc",		"d,v",		0x4800008b, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.code.disc.i",    	"d,v",		0x4800028b, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.code.rng",		"d,v",		0x4800008c, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.code.rng.i",		"d,v",		0x4800028c, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+
+{"gnss.stat.wr",		"v",		0x48000001, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.stat.rd",		"d",		0x48000081, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.afe.wr",			"v",		0x48000014, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.afe.rd",			"d",		0x4800008D, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.free.accu.wr",   	"v,t",		0x48000012,0xfc00ffff,	RD_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.free.accu.rd",   	"d",		0x48000085, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.free.update.wr", 	"v",		0x48000013, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.free.update.rd", 	"d",		0x48000088, 0xffff07ff,	WR_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.track.step",		"v",		0x48000002, 0xfc1fffff, RD_1,			0,		I1,		GNSS,	0 },
+
+{"gnss.tst.0",			"v",		0x4800007f, 0xfc1fffff,	RD_1,			0,		I1,		GNSS,	0 },
+{"gnss.tst.1",			"d,v",		0x480000ff, 0xfc1f07ff,	WR_1|RD_2,		0,		I1,		GNSS,	0 },
+{"gnss.tst.2",			"d,v,t",	0x4800017f, 0xfc0007ff,	WR_1|RD_2|RD_3, 	0,		I1,		GNSS,	0 },
 
 /* Loongson specific instructions.  Loongson gs464 (aka loongson3a) redefines the Coprocessor 2
    instructions.  Put them here so that disassembler will find them first.
