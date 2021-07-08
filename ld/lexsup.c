@@ -23,6 +23,7 @@
 #include "bfdver.h"
 #include "libiberty.h"
 #include "filenames.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -1002,7 +1003,7 @@ parse_args (unsigned argc, char **argv)
 	case OPTION_NO_OMAGIC:
 	  config.text_read_only = true;
 	  config.magic_demand_paged = true;
-	  /* NB/ Does not set input_flags.dynamic to TRUE.
+	  /* NB/ Does not set input_flags.dynamic to true.
 	     Use --call-shared or -Bdynamic for this.  */
 	  break;
 	case 'n':
@@ -1668,11 +1669,11 @@ parse_args (unsigned argc, char **argv)
 	  break;
 
 	case OPTION_NO_POISON_SYSTEM_DIRECTORIES:
-	  command_line.poison_system_directories = FALSE;
+	  command_line.poison_system_directories = false;
 	  break;
 
 	case OPTION_ERROR_POISON_SYSTEM_DIRECTORIES:
-	  command_line.error_poison_system_directories = TRUE;
+	  command_line.error_poison_system_directories = true;
 	  break;
 
 	case OPTION_PUSH_STATE:
@@ -1822,7 +1823,7 @@ parse_args (unsigned argc, char **argv)
 
   BR_paranoid_env = getenv("BR_COMPILER_PARANOID_UNSAFE_PATH");
   if (BR_paranoid_env && strlen(BR_paranoid_env) > 0)
-    command_line.error_poison_system_directories = TRUE;
+    command_line.error_poison_system_directories = true;
 
   while (ingroup)
     {

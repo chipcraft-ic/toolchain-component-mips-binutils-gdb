@@ -18,6 +18,7 @@
    Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston,
    MA 02110-1301, USA.  */
 
+#include <stdbool.h>
 #include "sysdep.h"
 #include "bfd.h"
 #include "bfdlink.h"
@@ -369,7 +370,7 @@ ldfile_open_file_search (const char *arch,
 	  if (ldfile_try_open_bfd (name, entry))
 	    {
 	      entry->filename = name;
-          entry->flags.sysrooted = TRUE;
+          entry->flags.sysrooted = true;
 	      return true;
 	    }
 	  free (name);
@@ -566,7 +567,7 @@ try_open (const char *name, bool *sysrooted)
   return result;
 }
 
-/* Return TRUE iff directory DIR contains an "ldscripts" subdirectory.  */
+/* Return true iff directory DIR contains an "ldscripts" subdirectory.  */
 
 static bool
 check_for_scripts_dir (char *dir)

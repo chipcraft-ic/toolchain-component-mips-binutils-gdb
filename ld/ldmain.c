@@ -19,6 +19,7 @@
    Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston,
    MA 02110-1301, USA.  */
 
+#include <stdbool.h>
 #include "sysdep.h"
 #include "bfd.h"
 #include "safe-ctype.h"
@@ -88,7 +89,7 @@ bool verbose;
    instead of complaining if no input files are given.  */
 bool version_printed;
 
-/* TRUE if we should demangle symbol names.  */
+/* true if we should demangle symbol names.  */
 bool demangling;
 
 args_type command_line;
@@ -321,8 +322,8 @@ main (int argc, char **argv)
   command_line.warn_mismatch = true;
   command_line.warn_search_mismatch = true;
   command_line.check_section_addresses = -1;
-  command_line.poison_system_directories = TRUE;
-  command_line.error_poison_system_directories = FALSE;
+  command_line.poison_system_directories = true;
+  command_line.error_poison_system_directories = false;
 
   /* We initialize DEMANGLING based on the environment variable
      COLLECT_NO_DEMANGLE.  The gcc collect2 program will demangle the
@@ -1295,7 +1296,7 @@ struct warning_callback_info
 };
 
 /* Look through the relocs to see if we can find a plausible address
-   for SYMBOL in ABFD.  Return TRUE if found.  Otherwise return FALSE.  */
+   for SYMBOL in ABFD.  Return true if found.  Otherwise return false.  */
 
 static bool
 symbol_warning (const char *warning, const char *symbol, bfd *abfd)
@@ -1448,7 +1449,7 @@ undefined_symbol (struct bfd_link_info *info,
       argv[1] = "undefined-symbol";
       argv[2] = (char *) name;
       argv[3] = NULL;
-      
+
       if (verbose)
 	einfo (_("%P: About to run error handling script '%s' with arguments: '%s' '%s'\n"),
 	       argv[0], argv[1], argv[2]);
@@ -1469,7 +1470,7 @@ undefined_symbol (struct bfd_link_info *info,
 	 carry on to issue the normal error message.  */
     }
 #endif /* SUPPORT_ERROR_HANDLING_SCRIPT */
-  
+
   if (section != NULL)
     {
       if (error_count < MAX_ERRORS_IN_A_ROW)

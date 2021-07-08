@@ -38,6 +38,7 @@
 # define _LIBGETTEXT_H
 #endif
 #include <locale.h>
+#include <stdbool.h>
 
 #ifdef ENABLE_NLS
 # include <libintl.h>
@@ -120,17 +121,17 @@ typedef struct
   /* 1 => assign space to common symbols even if `relocatable_output'.  */
   bool force_common_definition;
 
-  /* If TRUE, build MIPS embedded PIC relocation tables in the output
+  /* If true, build MIPS embedded PIC relocation tables in the output
      file.  */
   bool embedded_relocs;
 
-  /* If TRUE, force generation of a file with a .exe file.  */
+  /* If true, force generation of a file with a .exe file.  */
   bool force_exe_suffix;
 
-  /* If TRUE, generate a cross reference report.  */
+  /* If true, generate a cross reference report.  */
   bool cref;
 
-  /* If TRUE (which is the default), warn about mismatched input
+  /* If true (which is the default), warn about mismatched input
      files.  */
   bool warn_mismatch;
 
@@ -142,7 +143,7 @@ typedef struct
      for overlaps.  Relocatable links only check when this is > 0.  */
   signed char check_section_addresses;
 
-  /* If TRUE allow the linking of input files in an unknown architecture
+  /* If true allow the linking of input files in an unknown architecture
      assuming that the user knows what they are doing.  This was the old
      behaviour of the linker.  The new default behaviour is to reject such
      input files.  */
@@ -151,19 +152,19 @@ typedef struct
   /* Name of the import library to generate.  */
   char *out_implib_filename;
 
-  /* If TRUE we'll just print the default output on stdout.  */
+  /* If true we'll just print the default output on stdout.  */
   bool print_output_format;
 
   /* If set, display the target memory usage (per memory region).  */
   bool print_memory_usage;
 
-  /* If TRUE (the default) warn for uses of system directories when
+  /* If true (the default) warn for uses of system directories when
      cross linking.  */
-  bfd_boolean poison_system_directories;
+  bool poison_system_directories;
 
-  /* If TRUE (default FALSE) give an error for uses of system
+  /* If true (default false) give an error for uses of system
      directories when cross linking instead of a warning.  */
-  bfd_boolean error_poison_system_directories;
+  bool error_poison_system_directories;
 
   /* Should we force section groups to be resolved?  Controlled with
      --force-group-allocation on the command line or FORCE_GROUP_ALLOCATION
@@ -231,36 +232,36 @@ typedef struct
   bool magic_demand_paged;
   bool make_executable;
 
-  /* If TRUE, -shared is supported.  */
+  /* If true, -shared is supported.  */
   /* ??? A better way to do this is perhaps to define this in the
      ld_emulation_xfer_struct since this is really a target dependent
      parameter.  */
   bool has_shared;
 
-  /* If TRUE, build constructors.  */
+  /* If true, build constructors.  */
   bool build_constructors;
 
-  /* If TRUE, warn about any constructors.  */
+  /* If true, warn about any constructors.  */
   bool warn_constructors;
 
-  /* If TRUE, warn about merging common symbols with others.  */
+  /* If true, warn about merging common symbols with others.  */
   bool warn_common;
 
-  /* If TRUE, only warn once about a particular undefined symbol.  */
+  /* If true, only warn once about a particular undefined symbol.  */
   bool warn_once;
 
   /* How should we deal with orphan sections.  */
   enum orphan_handling_enum orphan_handling;
 
-  /* If TRUE, warn if multiple global-pointers are needed (Alpha
+  /* If true, warn if multiple global-pointers are needed (Alpha
      only).  */
   bool warn_multiple_gp;
 
-  /* If TRUE, warn if the starting address of an output section
+  /* If true, warn if the starting address of an output section
      changes due to the alignment of an input section.  */
   bool warn_section_align;
 
-  /* If TRUE, warning messages are fatal */
+  /* If true, warning messages are fatal */
   bool fatal_warnings;
 
   sort_order sort_common;
