@@ -200,6 +200,7 @@ _GL_CXXALIASWARN (mktime);
    <https://pubs.opengroup.org/onlinepubs/9699919799/functions/localtime_r.html> and
    <https://pubs.opengroup.org/onlinepubs/9699919799/functions/gmtime_r.html>.  */
 # if @GNULIB_TIME_R@
+# if ! defined(__MINGW32__)
 #  if @REPLACE_LOCALTIME_R@
 #   if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #    undef localtime_r
@@ -219,6 +220,9 @@ _GL_FUNCDECL_SYS (localtime_r, struct tm *, (time_t const *restrict __timer,
 _GL_CXXALIAS_SYS (localtime_r, struct tm *, (time_t const *restrict __timer,
                                              struct tm *restrict __result));
 #  endif
+# endif /* ! defined(__MINGW32__) */
+
+# if ! defined(__MINGW32__)
 #  if @HAVE_DECL_LOCALTIME_R@
 _GL_CXXALIASWARN (localtime_r);
 #  endif
@@ -244,6 +248,7 @@ _GL_CXXALIAS_SYS (gmtime_r, struct tm *, (time_t const *restrict __timer,
 #  if @HAVE_DECL_LOCALTIME_R@
 _GL_CXXALIASWARN (gmtime_r);
 #  endif
+# endif /* ! defined(__MINGW32__) */
 # endif
 
 /* Convert TIMER to RESULT, assuming local time and UTC respectively.  See
